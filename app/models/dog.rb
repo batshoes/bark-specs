@@ -1,8 +1,10 @@
 class Dog < ActiveRecord::Base
 
   has_secure_password
-  
+
   validates_presence_of :name, :birthday, :city, :state, :email
+
+  validates_length_of :state, minimum: 2
 
   validates_uniqueness_of :email
 
@@ -17,8 +19,20 @@ class Dog < ActiveRecord::Base
     birthday.month == Time.now.month && birthday.day == Time.now.day
   end
 
+  attr_writer :lat, :long
+  def geolocate(address)
+    geocoder = Geocoder.new
+    self.lat = geocoder.position(address)[:lat]
+    self.long = geocoder.position(address)[:long]
+  end
+
   def age
-    Time.now.year - birthday.year
+    age = Time.now.year - birthday.year
+    months = Time.now.month - birthday.month
+        if months < 0 
+          age = age - 1
+        end
+    age
   end
 
   def location

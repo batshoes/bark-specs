@@ -41,6 +41,7 @@ class DogsController < ApplicationController
     @dog = current_dog
   end
 
+
   private
    
   def set_dog
