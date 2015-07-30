@@ -5,6 +5,7 @@ RSpec.describe "dogs/edit", :type => :view do
     @dog = assign(:dog, Dog.create!(
       :name => "MyString",
       :email => "MyString",
+      :birthday => DateTime.now,
       :password_digest => "MyString",
       :city => "MyString",
       :state => "MyString",
@@ -21,7 +22,7 @@ RSpec.describe "dogs/edit", :type => :view do
 
       assert_select "input#dog_email[name=?]", "dog[email]"
 
-      assert_select "input#dog_password_digest[name=?]", "dog[password_digest]"
+      assert_select "input#dog_password[name=?]", "dog[password]"
 
       assert_select "input#dog_city[name=?]", "dog[city]"
 
