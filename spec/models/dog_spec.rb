@@ -87,12 +87,6 @@ RSpec.describe Dog, :type => :model do
       expect(test_dog.birthday?).to be true
     end
 
-    it "f" do
-      allow(Dog).to receive(:find) { test_dog }
-      Dog.find(3)
-      binding.pry
-    end
-
     it "return false if today is not the dog's birthday" do
       other_dog = create(:dog, birthday: 2.days.ago)
       expect(other_dog.birthday?).to be false
